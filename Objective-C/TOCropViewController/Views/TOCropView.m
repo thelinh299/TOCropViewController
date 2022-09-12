@@ -1012,6 +1012,11 @@ typedef NS_ENUM(NSInteger, TOCropViewOverlayEdge) {
     if (self.croppingStyle == TOCropViewCroppingStyleCircular) {
         CGFloat halfWidth = self.foregroundContainerView.frame.size.width * 0.5f;
         self.foregroundContainerView.layer.cornerRadius = halfWidth;
+    } else if (self.croppingStyle == TOCropViewCroppingStyleOval) {
+        CAShapeLayer *shapeLayer = [[CAShapeLayer alloc] init];
+        shapeLayer.frame = self.foregroundContainerView.bounds;
+        shapeLayer.path = CGPathCreateWithEllipseInRect(self.foregroundContainerView.bounds, NULL);
+        self.foregroundContainerView.layer.mask = shapeLayer;
     }
     
     //reset the scroll view insets to match the region of the new crop rect
